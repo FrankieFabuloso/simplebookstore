@@ -2,8 +2,15 @@ DROP TABLE IF EXISTS books;
 CREATE TABLE IF NOT EXISTS books(
   id SERIAL PRIMARY KEY,
   title VARCHAR(512),
-  image_URL VARCHAR(512),
-  description TEXT
+  description TEXT,
+  large_image_url VARCHAR(512),
+  thumbnail_image_url VARCHAR(512),
+  buy_link VARCHAR(512),
+  average_rating DECIMAL,
+  ratings_count INTEGER,
+  list_price DECIMAL,
+  published_at VARCHAR(32),
+  page_count INTEGER
 );
 
 DROP TABLE IF EXISTS authors;
