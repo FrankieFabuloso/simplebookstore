@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 /* GET bookDetails */
 router.get('/book', function(req, res, next) {
-  Books.get(1)
+  Books.getBook(1)
   .then(result => {
 
     res.render('bookDetails', { book: result});
