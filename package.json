@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "build": "dropdb simpleBookstore -e -i --if-exists && createdb simpleBookstore && psql simpleBookstore < ./database/schema.sql && psql simpleBookstore < ./database/books.sql"
+    "build": "export DBNAME='simpleBookstore' && dropdb simpleBookstore -e -i --if-exists && createdb simpleBookstore && psql simpleBookstore < ./database/schema.sql && psql simpleBookstore < ./database/books.sql"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
