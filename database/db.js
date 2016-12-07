@@ -1,5 +1,10 @@
-  const connectionString = `postgres://${process.env.USER}@localhost:5432/${process.env.DBNAME}`
+const fs = require('fs')
 
+if(fs.existsSync('.env')) {
+  require('dotenv').config()
+}
+  console.log(process.env.DATABASE_URL)
+  const connectionString = process.env.DATABASE_URL
   const pgp = require('pg-promise')()
 
   const db = pgp(connectionString)

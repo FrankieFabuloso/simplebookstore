@@ -4,6 +4,11 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
+    "db:create": "createdb simpleBookstore",
+    "db:drop": "dropdb simpleBookstore -e -i --if-exists",
+    "db:init": "psql simpleBookstore < ./database/schema.sql",
+    "db:seed": "psql simpleBookstore < ./database/books.sql",
+    "db:reset": "npm run db:drop && npm run db:create && npm run db:init && npm run db:seed",
     "build": "export DBNAME='simpleBookstore' && dropdb simpleBookstore -e -i --if-exists && createdb simpleBookstore && psql simpleBookstore < ./database/schema.sql && psql simpleBookstore < ./database/books.sql"
   },
   "dependencies": {
@@ -16,5 +21,8 @@
     "pg-promise": "^5.4.7",
     "pug": "~2.0.0-beta6",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "dotenv": "^2.0.0"
   }
 }
