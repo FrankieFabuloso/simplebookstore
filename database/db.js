@@ -16,6 +16,8 @@
 
   const getGenres = 'SELECT * FROM genres JOIN book_genres ON genre_id=genres.id WHERE book_id IN ($1:csv)'
 
+  const deleteBook = 'DELETE FROM books WHERE id = $1'
+
   const Books = {
     getBook: (id) => db.one( getBook, [id] )
       .then( oneBook => {

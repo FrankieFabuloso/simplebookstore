@@ -29,7 +29,16 @@ mixin listBookProp(book)
 mixin nextPrevPage( currentPage )
   - nextPage = parseInt(currentPage) + 1
   - prevPage = parseInt(currentPage) - 1
-  if currentPage > 1
-    a(href=`/admin/?page=${prevPage}`) Prev
-  if books.length == 50
-    a(href=`/admin/?page=${nextPage}`) Next
+  - console.log(books.length);
+  nav(aria-label='...')
+    ul.pager
+      if parseInt(currentPage) != 1
+        li.previous
+          a(href=`/admin/?page=${prevPage}`)
+            span(aria-hidden='true') ←
+            |  Previous
+      if books.length === 50
+        li.next
+          a(href=`/admin/?page=${nextPage}`)
+            | Next
+            span(aria-hidden='true') →

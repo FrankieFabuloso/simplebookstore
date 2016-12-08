@@ -27,14 +27,14 @@ CREATE TABLE IF NOT EXISTS genres(
 
 DROP TABLE IF EXISTS book_authors;
 CREATE TABLE IF NOT EXISTS book_authors(
-  book_id INTEGER,
-  author_id INTEGER,
+  book_id INTEGER REFERENCES books ON DELETE CASCADE,
+  author_id INTEGER REFERENCES authors ON DELETE CASCADE,
   PRIMARY KEY(book_id, author_id)
 );
 
 DROP TABLE IF EXISTS book_genres;
 CREATE TABLE IF NOT EXISTS book_genres(
-  book_id INTEGER,
-  genre_id INTEGER,
+  book_id INTEGER REFERENCES books ON DELETE CASCADE,
+  genre_id INTEGER REFERENCES genres ON DELETE CASCADE,
   PRIMARY KEY(book_id, genre_id)
 );
