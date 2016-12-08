@@ -6,7 +6,7 @@ const Books = require('../database/db').Books
 router.get('/', function(req, res, next) {
   const randomBooks = []
   const checkForDoubles = []
-  for(let i = 0; randomBooks.length < 50; i++){
+  for(let i = 0; randomBooks.length < 11; i++){
     let id = Math.floor( Math.random()*1000)
     if(checkForDoubles.indexOf(id) === -1) {
       randomBooks.push(Books.getBook(id))
@@ -39,7 +39,7 @@ router.get('/admin', function(req, res, next) {
   console.log(req.query);
   Books.getAllBooks(offset)
   .then(bookResults => {
-    res.render('index', { books: bookResults })
+    res.render('index', { books: bookResults, page:page})
   })
 })
 

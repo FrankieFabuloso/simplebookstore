@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  +nextPrevPage(page)
   table.table.table-hover
     thead
       tr
@@ -24,3 +25,11 @@ mixin listBookProp(book)
       span= book.title
     th
       span=  `${description}`
+
+mixin nextPrevPage( currentPage )
+  - nextPage = parseInt(currentPage) + 1
+  - prevPage = parseInt(currentPage) - 1
+  if currentPage > 1
+    a(href=`/admin/?page=${prevPage}`) Prev
+  if books.length == 50
+    a(href=`/admin/?page=${nextPage}`) Next
