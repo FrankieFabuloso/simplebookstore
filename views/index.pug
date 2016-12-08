@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  for book in books
+    - img = book.thumbnail_image_url || '../images/bookBrand.png'
+    - rating = book.average_rating || 'no rating'
+    a(href=`/book/${book.id}`)
+      h1 poop #{book.title}
+      img(src=`${img}`)
+    for author in book.authors
+      h3= author.name
+    for genre in book.genres
+      h3= genre.name
+    p Rating: #{rating}
