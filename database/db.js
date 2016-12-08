@@ -32,6 +32,8 @@
     getAllBooks: (offset) => db.any( getAllBooks, offset)
       .then( results => {
         const bookIds = results.map(book => book.id)
+        const empty = [];
+        if(results[0] == null) { return Promise.resolve(results) }
         return Promise.all([results, Books.getAuthors(bookIds), Books.getGenres(bookIds)])
       })
       .then( allBooksInfo => {
