@@ -35,7 +35,7 @@ router.get('/book/:id', function(req, res, next) {
 
 router.get('/admin', function(req, res, next) {
   const page = req.query.page || 1
-  const offset = (page-1) * 10
+  const offset = (page-1) * 12
   console.log(req.query);
   Books.getAllBooks(offset)
   .then(bookResults => {
@@ -43,11 +43,15 @@ router.get('/admin', function(req, res, next) {
   })
 })
 
+router.post('/admin/addBook', function(req, res, next) {
+  const title = req.body
+  console.log(title)
+  res.redirect('/admin')
+})
+
 router.get('/delete/:id', function(req, res, next) {
   const id = req.params.id
   const page = req.query.page
-  console.log('farts');
-  console.log(page);
   Books.deleteBook(id)
   res.redirect(`/admin/?page=${page}`)
 })
