@@ -10,13 +10,15 @@
 
   const getBook = 'SELECT * FROM books WHERE id = $1'
 
-  const getAllBooks = 'SELECT * FROM books LIMIT 50 OFFSET $1'
+  const getAllBooks = 'SELECT * FROM books LIMIT 12 OFFSET $1'
 
   const getAuthors = 'SELECT * FROM authors JOIN book_authors ON author_id=authors.id WHERE book_id IN ($1:csv)'
 
   const getGenres = 'SELECT * FROM genres JOIN book_genres ON genre_id=genres.id WHERE book_id IN ($1:csv)'
 
   const deleteBook = 'DELETE FROM books WHERE id = $1'
+
+  const addBook = ""
 
   const Books = {
     getBook: (id) => db.one( getBook, [id] )

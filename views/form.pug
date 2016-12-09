@@ -6,32 +6,45 @@
           span(aria-hidden='true') ×
         h4#addBookLabel.modal-title Add Book
       .modal-body
-        form
+        form(method='post', action='/admin/addBook')
           .form-group
             label(for='bookTitle') Book Title
-            input#bookTitleInput.form-control(type='text',  placeholder='Enter Book Title')
+            input#bookTitle.form-control(type='text',  placeholder='Enter Book Title', name='title')
           .form-group
-            label(for='bookPublishDate') Author
-            input#bookPublishDateInput.form-control(type='text', placeholder='Password')
+            label(for='bookPublishDate') Publish Date
+            input#bookPublishDate.form-control(type='date', placeholder='author', name='publishDate')
           .form-group
             label(for='bookAuthor') Author
-            input#bookAuthorInput.form-control(type='date', placeholder='Password')
+            button.clickAddAuthor.glyphicon.glyphicon-plus.btn.btn-xs
+            .author
+            input#bookAuthor.form-control(type='text', placeholder='Author', name='author')
+          .form-group
+            label(for='bookGenre') Genre
+            button.clickAddGenre.glyphicon.glyphicon-plus.btn.btn-xs
+            .genre
+            input#bookGenre.form-control(type='text', placeholder='Genre', name='genre')
+          .form-group
+            label(for='pageCount') Page Count
+            input#pageCount.form-control(type='number',  placeholder='Enter Page Count', name='pageCount')
+          .form-group
+            label(for='listPrice') List Price
+            input#listPrice.form-control(type='text',  placeholder='Book Price', name='listPrice')
+
           .form-group
             label(for='bookDescription') Book Synopsis
-            textarea#exampleTextarea.form-control(rows='3')
+            textarea#bookDescription.form-control(rows='3',name='description')
           .form-group
-            label(for='bookTitle') Image URL
-            input#bookTitleInput.form-control(type='text',  placeholder='Enter Book IMG URL')
+            label(for='bookImgUrl') Image URL
+            input#bookImgUrl.form-control(type='text',  placeholder='Enter Book IMG URL', name='imgUrl')
             small#fileHelp.form-text.text-muted
-              | Copy and pase the URL so we can judge the book by its cove
-          .form-check
-            label.form-check-label
-              input.form-check-input(type='checkbox')
-              |       Check me out
-          button.btn.btn-primary(type='submit') Save changes
-      .modal-footer
-        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-        button.btn.btn-primary(type='submit') Save changes
+              | Copy and pase the URL so we can judge the book by its cover
+          .form-group
+            label(for='bookBuyLink') Buy Link
+            input#bookBuyLink.form-control(type='text',  placeholder='Enter link to purchase book', name='buyLink')
+
+          .modal-footer
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+            button.btn.btn-primary(type='submit') Save changes
 
   mixin listGenres( genres )
     .form-group

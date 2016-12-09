@@ -39,7 +39,7 @@ mixin nextPrevPage( currentPage )
           a(href=`/admin/?page=${prevPage}`)
             span(aria-hidden='true') ←
             |  Previous
-      if books.length === 50
+      if books.length === 12
         li.next
           a(href=`/admin/?page=${nextPage}`)
             | Next
