@@ -11,44 +11,31 @@
             label(for='bookTitle') Book Title
             input#bookTitleInput.form-control(type='text',  placeholder='Enter Book Title')
           .form-group
-            label(for='bookAuthor') Author
-            input#exampleInputPassword1.form-control(type='password', placeholder='Password')
+            label(for='bookPublishDate') Author
+            input#bookPublishDateInput.form-control(type='text', placeholder='Password')
           .form-group
-            label(for='exampleSelect1') Example select
-            select#exampleSelect1.form-control
-              option 1
-              option 2
-              option 3
-              option 4
-              option 5
+            label(for='bookAuthor') Author
+            input#bookAuthorInput.form-control(type='date', placeholder='Password')
           .form-group
             label(for='bookDescription') Book Synopsis
             textarea#exampleTextarea.form-control(rows='3')
           .form-group
             label(for='bookTitle') Image URL
-            input#bookTitleInput.form-control(type='text',  placeholder='Enter Book Title')
+            input#bookTitleInput.form-control(type='text',  placeholder='Enter Book IMG URL')
             small#fileHelp.form-text.text-muted
-              | Copy and pase the URL so we can judge the book by its cover
-          fieldset.form-group
-            legend Radio buttons
-            .form-check
-              label.form-check-label
-                input#optionsRadios1.form-check-input(type='radio', name='optionsRadios', value='option1', checked='')
-                |         Option one is this and that—be sure to include why it's great
-            .form-check
-              label.form-check-label
-                input#optionsRadios2.form-check-input(type='radio', name='optionsRadios', value='option2')
-                |         Option two can be something else and selecting it will deselect option one
-            .form-check.disabled
-              label.form-check-label
-                input#optionsRadios3.form-check-input(type='radio', name='optionsRadios', value='option3', disabled='')
-                |         Option three is disabled
+              | Copy and pase the URL so we can judge the book by its cove
           .form-check
             label.form-check-label
               input.form-check-input(type='checkbox')
               |       Check me out
-          button.btn.btn-primary(type='submit') Submit
-
+          button.btn.btn-primary(type='submit') Save changes
       .modal-footer
         button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-        button.btn.btn-primary(type='button') Save changes
+        button.btn.btn-primary(type='submit') Save changes
+
+  mixin listGenres( genres )
+    .form-group
+      label(for='exampleSelect1') Example select
+      select#exampleSelect1.form-control(multiple='')
+        for genre in genres
+          option genre
