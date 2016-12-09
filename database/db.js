@@ -50,6 +50,7 @@
       }),
     getAuthors: (book_id) => db.any( getAuthors, [book_id]),
     getGenres: (book_id) => db.any( getGenres, [book_id]),
+    deleteBook: (book_id) => db.none( deleteBook, [book_id])
   }
 
 module.exports = {Books}

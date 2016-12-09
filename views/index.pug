@@ -21,6 +21,8 @@ mixin listBookProp(book)
       a(href=`/book/${book.id}`)
         img(src=`${img}`)
       span= `Rating: ${rating}`
+      if isAdmin
+        a(href=`/delete/${book.id}/?page=${page}`) Delete
     th
       span= book.title
     th
@@ -32,7 +34,7 @@ mixin nextPrevPage( currentPage )
   - console.log(books.length);
   nav(aria-label='...')
     ul.pager
-      if parseInt(currentPage) != 1
+      if parseInt(currentPage) > 1
         li.previous
           a(href=`/admin/?page=${prevPage}`)
             span(aria-hidden='true') ←

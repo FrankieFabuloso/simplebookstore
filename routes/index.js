@@ -39,11 +39,17 @@ router.get('/admin', function(req, res, next) {
   console.log(req.query);
   Books.getAllBooks(offset)
   .then(bookResults => {
-    res.render('index', { books: bookResults, page:page})
+    res.render('index', { books: bookResults, page:page, isAdmin:true})
   })
 })
 
-router.get('/delete', function(req, res, next) {
+router.get('/delete/:id', function(req, res, next) {
+  const id = req.params.id
+  const page = req.query.page
+  console.log('farts');
+  console.log(page);
+  Books.deleteBook(id)
+  res.redirect(`/admin/?page=${page}`)
 })
 
 router.get('*', function(req, res, next) {
