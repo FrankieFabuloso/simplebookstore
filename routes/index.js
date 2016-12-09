@@ -5,10 +5,15 @@ const Books = require('../database/db').Books
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const randomBooks = []
-  for(let i = 0; i < 50; i++){
+  const checkForDoubles = []
+  for(let i = 0; randomBooks.length < 11; i++){
     let id = Math.floor( Math.random()*1000)
-    randomBooks.push(Books.getBook(id))
+    if(checkForDoubles.indexOf(id) === -1) {
+      randomBooks.push(Books.getBook(id))
+      checkForDoubles.push(id)
+    }
   }
+  console.log(randomBooks.length);
   Promise.all(randomBooks)
   .then( result => {
     res.render('index', { books: result })
@@ -29,12 +34,22 @@ router.get('/book/:id', function(req, res, next) {
 })
 
 router.get('/admin', function(req, res, next) {
-  const page = req.body.page || 1
+  const page = req.query.page || 1
   const offset = (page-1) * 10
+  console.log(req.query);
   Books.getAllBooks(offset)
   .then(bookResults => {
-    res.render('index', { books: bookResults })
+    res.render('index', { books: bookResults, page:page, isAdmin:true})
   })
+})
+
+router.get('/delete/:id', function(req, res, next) {
+  const id = req.params.id
+  const page = req.query.page
+  console.log('farts');
+  console.log(page);
+  Books.deleteBook(id)
+  res.redirect(`/admin/?page=${page}`)
 })
 
 router.get('*', function(req, res, next) {

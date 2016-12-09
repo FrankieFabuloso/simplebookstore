@@ -1,5 +1,15 @@
-nav.navbar.navbar-default
+navnavbar.navbar-default.navbar-fixed-top
   .container-fluid
+    a.navbar-brand(href='/')
+      img(id='brand', alt='Brand', src='/images/bookBrand.png')
+      span BookStore
     .navbar-header
-      a.navbar-brand(href='#')
-        img(id='brand' alt='Brand', src='/images/bookBrand.png')
+      ul.nav.nav-tabs
+        li.active(role='presentation')
+          a(href='/admin') Admin
+        li(role='presentation')
+          a(href='/') Book List
+        if isAdmin
+          li(role='presentation')
+            a(href='#',type='button', data-toggle='modal', data-target='#newBook')
+              | Add Book

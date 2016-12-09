@@ -16,6 +16,8 @@
 
   const getGenres = 'SELECT * FROM genres JOIN book_genres ON genre_id=genres.id WHERE book_id IN ($1:csv)'
 
+  const deleteBook = 'DELETE FROM books WHERE id = $1'
+
   const Books = {
     getBook: (id) => db.one( getBook, [id] )
       .then( oneBook => {
@@ -32,6 +34,8 @@
     getAllBooks: (offset) => db.any( getAllBooks, offset)
       .then( results => {
         const bookIds = results.map(book => book.id)
+        const empty = [];
+        if(results[0] == null) { return Promise.resolve(results) }
         return Promise.all([results, Books.getAuthors(bookIds), Books.getGenres(bookIds)])
       })
       .then( allBooksInfo => {
@@ -46,6 +50,7 @@
       }),
     getAuthors: (book_id) => db.any( getAuthors, [book_id]),
     getGenres: (book_id) => db.any( getGenres, [book_id]),
+    deleteBook: (book_id) => db.none( deleteBook, [book_id])
   }
 
 module.exports = {Books}

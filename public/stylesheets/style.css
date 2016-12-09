@@ -8,6 +8,11 @@ a {
 }
 
 #brand {
+  display: inline;
   height: 20px;
   width: auto;
+}
+
+span {
+  display: inline;
 }

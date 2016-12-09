@@ -1,14 +1,46 @@
 extends layout
 
 block content
-  for book in books
-    - img = book.thumbnail_image_url || '../images/bookBrand.png'
-    - rating = book.average_rating || 'no rating'
-    a(href=`/book/${book.id}`)
-      h1 poop #{book.title}
-      img(src=`${img}`)
-    for author in book.authors
-      h3= author.name
-    for genre in book.genres
-      h3= genre.name
-    p Rating: #{rating}
+  +nextPrevPage(page)
+  table.table.table-hover
+    thead
+      tr
+        th Image
+        th Title
+        th Description
+    tbody
+      for book in books
+        +listBookProp(book)
+
+mixin listBookProp(book)
+  - img = book.thumbnail_image_url || '../images/no_book_image.gif'
+  - rating = book.average_rating || 'no rating'
+  - description = book.description || 'No description avaliable'
+  tr
+    th
+      a(href=`/book/${book.id}`)
+        img(src=`${img}`)
+      span= `Rating: ${rating}`
+      if isAdmin
+        a(href=`/delete/${book.id}/?page=${page}`) Delete
+    th
+      span= book.title
+    th
+      span=  `${description}`
+
+mixin nextPrevPage( currentPage )
+  - nextPage = parseInt(currentPage) + 1
+  - prevPage = parseInt(currentPage) - 1
+  - console.log(books.length);
+  nav(aria-label='...')
+    ul.pager
+      if parseInt(currentPage) > 1
+        li.previous
+          a(href=`/admin/?page=${prevPage}`)
+            span(aria-hidden='true') ←
+            |  Previous
+      if books.length === 50
+        li.next
+          a(href=`/admin/?page=${nextPage}`)
+            | Next
+            span(aria-hidden='true') →
