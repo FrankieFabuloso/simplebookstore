@@ -1,11 +1,15 @@
 extends layout
 
 block content
-  - img = book.thumbnail_image_url || '../images/bookBrand.png'
+  include ./edit.pug
+  - img = book.thumbnail_image_url
   img(src=`${img}`)
+  a(href='#',type='button', data-toggle='modal', data-target='#editBook')
+    | Edit
   h1= book.title
   h2= book.description
-  //- for author in book.authors
-  //-   h3= author.name
-  //- for genre in book.genres
-  //-   h3= genre.name
+  a(href=`${book.buy_link}`) Buy NOW!
+  for author in book.authors
+    h3= author.name
+  for genre in book.genres
+    h3= genre.name

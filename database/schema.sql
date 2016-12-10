@@ -4,13 +4,13 @@ CREATE TABLE IF NOT EXISTS books(
   title VARCHAR(512),
   description TEXT,
   large_image_url VARCHAR(512),
-  thumbnail_image_url VARCHAR(512),
-  buy_link VARCHAR(512),
-  average_rating DECIMAL,
-  ratings_count INTEGER,
-  list_price DECIMAL,
+  thumbnail_image_url VARCHAR(512) DEFAULT 'http://www.aobc.com/images/astd/no_book_image.gif',
+  buy_link VARCHAR(512) DEFAULT 'https://www.amazon.com/Coding-Dummies-Computers-Nikhil-Abraham/dp/1118951301',
+  average_rating DECIMAL DEFAULT 2.5,
+  ratings_count INTEGER DEFAULT 0,
+  list_price DECIMAL DEFAULT 0,
   published_at VARCHAR(32),
-  page_count INTEGER
+  page_count INTEGER DEFAULT 0
 );
 
 DROP TABLE IF EXISTS authors;
