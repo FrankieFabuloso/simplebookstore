@@ -29,14 +29,13 @@ router.get('/book/:id', function(req, res, next) {
     res.redirect('/')
   })
   .then(result => {
-    res.render('bookDetails', { book: result});
+    res.render('bookDetails', { book: result, addBookFlag: false});
   })
 })
 
 router.get('/admin', function(req, res, next) {
   const page = req.query.page || 1
   const offset = (page-1) * 12
-  console.log(req.query);
   Books.getAllBooks(offset)
   .then(bookResults => {
     res.render('index', { books: bookResults, page:page, isAdmin:true})
@@ -44,9 +43,23 @@ router.get('/admin', function(req, res, next) {
 })
 
 router.post('/admin/addBook', function(req, res, next) {
-  const title = req.body
-  console.log(title)
-  res.redirect('/admin')
+  const parameters = req.body
+  Books.addBook(parameters)
+  .catch( error => {
+    console.log(error);
+    res.redirect('/')
+  })
+  .then(result => {
+    console.log("Result: ",result)
+    res.redirect('/admin/addBook/success')
+  })
+})
+
+router.get('/admin/addBook/success', function(req, res, next) {
+  Books.lastBook()
+  .then(results => {
+    res.render('bookDetails', {book: results})
+  })
 })
 
 router.get('/delete/:id', function(req, res, next) {
