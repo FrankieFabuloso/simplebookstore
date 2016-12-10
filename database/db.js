@@ -31,6 +31,12 @@
       let {title, description, imgUrl, buyLink, listPrice, publishDate, pageCount} = parameters
       listPrice = parseFloat(listPrice)
       pageCount = parseInt(pageCount)
+      if(buyLink === ''){
+        buyLink = 'https://www.amazon.com/Coding-Dummies-Computers-Nikhil-Abraham/dp/1118951301'
+      }
+      if(imgUrl === ''){
+        imgUrl = 'http://www.aobc.com/images/astd/no_book_image.gif'
+      }
       return db.one(addBook, [title, description, imgUrl, buyLink, listPrice, publishDate, pageCount])
       .then( addedBook => {
         const result = addedBook

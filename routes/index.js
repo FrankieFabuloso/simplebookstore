@@ -55,6 +55,13 @@ router.post('/admin/addBook', function(req, res, next) {
   })
 })
 
+router.post('/edit/:id', function(req, res, next) {
+  const id = req.params.id
+  Books.getBook(id)
+  .then( result => {
+
+  })
+})
 router.get('/admin/addBook/success', function(req, res, next) {
   Books.lastBook()
   .then(results => {
