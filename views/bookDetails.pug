@@ -3,13 +3,17 @@ extends layout
 block content
   include ./edit.pug
   - img = book.thumbnail_image_url
-  img(src=`${img}`)
-  a(href='#',type='button', data-toggle='modal', data-target='#editBook')
-    | Edit
-  h1= book.title
-  h2= book.description
-  a(href=`${book.buy_link}`) Buy NOW!
-  for author in book.authors
-    h3= author.name
-  for genre in book.genres
-    h3= genre.name
+  .book-details-wrap
+    .book-img-wrap
+      img(src=`${img}`)
+      for author in book.authors
+        h4= author.name
+    .book-description
+      h2= book.title
+        a(href='#',type='button', data-toggle='modal', data-target='#editBook')
+          span.delete-book.glyphicon.glyphicon-edit.btn
+      p= book.description
+      for genre in book.genres
+        span= genre.name
+      div
+        a(href=`${book.buy_link}`) Buy NOW!

@@ -1,3 +1,5 @@
+  const _ = require('lodash')
+
   const fs = require('fs')
 
   if(fs.existsSync('.env')) {
@@ -20,9 +22,12 @@
 
   const addBook = 'INSERT INTO books(id, title, description, thumbnail_image_url, buy_link, list_price, published_at, page_count) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7) RETURNING *'
 
-  const addAuthor = "INSERT INTO authors(id, name) VALUES (DEFAULT, $1) ON CONFLICT DO NOTHING; INSERT INTO book_authors(book_id, author_id) VALUES($2,( SELECT currval('authors_id_seq'))) ON CONFLICT DO NOTHING RETURNING *"
+  const addAuthor = "INSERT INTO authors(id, name) VALUES (DEFAULT, $1) ON CONFLICT DO NOTHING; INSERT INTO book_authors(book_id, author_id) VALUES($2,( SELECT id FROM authors WHERE name=$1)) ON CONFLICT DO NOTHING RETURNING *"
 
-  const addGenre = "INSERT INTO genres(id, name) VALUES (DEFAULT, $1) ON CONFLICT DO NOTHING; INSERT INTO book_genres(book_id, genre_id) VALUES($2,( SELECT currval('genres_id_seq'))) ON CONFLICT DO NOTHING RETURNING *"
+  const addGenre = "INSERT INTO genres(id, name) VALUES (DEFAULT, $1) ON CONFLICT DO NOTHING; INSERT INTO book_genres(book_id, genre_id) VALUES($2,( SELECT id FROM genres WHERE name=$1)) ON CONFLICT DO NOTHING RETURNING *"
+
+  const editBookEntry = 'UPDATE books SET title=${title}, description=${description}, thumbnail_image_url=${imgUrl}, buy_link=${buyLink}, list_price=${listPrice}, published_at=${publishDate}, page_count=${pageCount} WHERE id=${id} RETURNING *'
+
 
   const getLastBook = "SELECT MAX(id) FROM books"
 
@@ -101,7 +106,40 @@
     getGenres: (book_id) => db.any( getGenres, [book_id]),
     deleteBook: (book_id) => db.none( deleteBook, [book_id]),
     lastBook: () => db.one(getLastBook)
-      .then(maxid => Books.getBook(maxid.max))
+      .then(maxid => Books.getBook(maxid.max)),
+    updateBook: ( id, attributes ) => {
+      // Update the fields of the book
+      const updateParams = Object.assign( {}, attributes, { id } )
+
+      return db.one( editBookEntry, updateParams)
+        .then( result => db.any( 'DELETE FROM book_authors WHERE book_id=$1', id ))
+        .then( result => paramsToArray( attributes.author ))
+        .then( authors => Promise.all( authors.map( authorName =>
+          db.one( addAuthor, [ authorName, id ] )
+        )))
+        .then( result => db.any( 'DELETE FROM book_genres WHERE book_id=$1', id ))
+        .then( result => paramsToArray( attributes.genre ))
+        .then( genres => Promise.all( genres.map( genreName =>
+          db.one( addGenre, [ genreName, id ] )
+        )))
+        .catch( error => console.log( error ))
+      }
   }
+
+const paramsToArray = params => {
+  if( Array.isArray( params )) {
+    return _.uniq(params).reduce( (memo, value) => {
+      if( value !== undefined && value.length > 0 ) {
+        memo.push( value )
+      }
+
+      return memo
+    }, [] )
+  } else if( params !== undefined ){
+    return [ params ]
+  } else {
+    return []
+  }
+}
 
 module.exports = {Books}
