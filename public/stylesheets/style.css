@@ -1,6 +1,7 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px;
+  font-family: "Book Antiqua",Palatino,"Palatino Linotype","Palatino LT STD",Georgia,serif !important;
 }
 
 a {
@@ -11,12 +12,43 @@ a {
   display: inline;
   height: 20px;
   width: auto;
+  padding-right: 10px;
 }
 
 span {
   display: inline;
 }
 
-.clickRemGenre {
+.book-img-wrap {
+  margin-top: 25px;
+  float: left;
+  margin-right: 25px;
+}
+
+.book-img-wrap a {
+  display: block;
+}
+
+.book-description {
+  width: 75%;
   display: inline-block;
+}
+
+.book-description p {
+  border: 1px black solid;
+  padding: 10px;
+}
+
+.clickRemGenre, .clickRemAuthor {
+  margin-bottom: 5px !important;
+}
+
+.clickAddGenre, .clickAddAuthor {
+   margin-left: 10px;
+ }
+
+#bookGenre, #bookAuthor{
+  display: inline-block;
+  width: 95%;
+  margin-left: 3px;
 }

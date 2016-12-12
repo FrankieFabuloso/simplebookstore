@@ -18,11 +18,15 @@ mixin listBookProp(book)
   - description = book.description || 'No description avaliable'
   tr
     th
-      a(href=`/book/${book.id}`)
-        img(src=`${img}`)
+      if isAdmin
+        a(href=`/book/${book.id}`)
+          img(src=`${img}`)
+      else
+        a(href=`/book/${book.id}`)
+          img(src=`${img}`)
       span= `Rating: ${rating}`
       if isAdmin
-        a(href=`/delete/${book.id}/?page=${page}`) Delete
+        a.glyphicon.glyphicon-remove.btn.btn-xs(href=`/delete/${book.id}/?page=${page}`) Delete
     th
       span= book.title
     th

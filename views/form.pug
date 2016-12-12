@@ -17,12 +17,16 @@
             label(for='bookAuthor') Author
             button.clickAddAuthor.glyphicon.glyphicon-plus.btn.btn-xs
             .author
-            input#bookAuthor.form-control(type='text', placeholder='Author', name='author')
+            .author-wrap
+              button.clickRemAuthor.glyphicon.glyphicon-remove.btn.btn-xs
+              input#bookAuthor.form-control(type='text', placeholder='Author', name='author')
           .form-group
             label(for='bookGenre') Genre
             button.clickAddGenre.glyphicon.glyphicon-plus.btn.btn-xs
             .genre
-            input#bookGenre.form-control(type='text', placeholder='Genre', name='genre')
+            .genre-wrap
+              button.clickRemGenre.glyphicon.glyphicon-remove.btn.btn-xs
+              input#bookGenre.form-control(type='text', placeholder='Genre', name='genre')
           .form-group
             label(for='pageCount') Page Count
             input#pageCount.form-control(type='number',  placeholder='Enter Page Count', name='pageCount')

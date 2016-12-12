@@ -42,6 +42,18 @@ router.get('/admin', function(req, res, next) {
   })
 })
 
+router.get('/admin/book/:id', function(req, res, next) {
+  const id = req.params.id
+  Books.getBook(id)
+  .catch(error => {
+    console.log(error);
+    res.redirect('/')
+  })
+  .then(result => {
+    res.render('bookDetails', { book: result, addBookFlag: false, isAdmin:true});
+  })
+})
+
 router.post('/admin/addBook', function(req, res, next) {
   const parameters = req.body
   Books.addBook(parameters)
@@ -55,7 +67,7 @@ router.post('/admin/addBook', function(req, res, next) {
   })
 })
 
-router.post('/admin/edit/:id', function(req, res, next) {
+router.post('/edit/:id', function(req, res, next) {
   const id = parseInt( req.params.id )
   console.log(id, req.body );
 
