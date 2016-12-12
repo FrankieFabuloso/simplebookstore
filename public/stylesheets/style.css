@@ -16,3 +16,7 @@ a {
 span {
   display: inline;
 }
+
+.clickRemGenre {
+  display: inline-block;
+}

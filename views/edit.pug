@@ -6,7 +6,7 @@
           span(aria-hidden='true') ×
         h4#addBookLabel.modal-title Edit Book
       .modal-body
-        form(method='post', action='/edit')
+        form(method='post', action=`/admin/edit/${book.id}`)
           .form-group
             label(for='bookTitle') Book Title
             input#bookTitle.form-control(type='text',  value=`${book.title}`, name='title')
@@ -16,15 +16,17 @@
           .form-group
             label(for='bookAuthor') Author
             button.clickAddAuthor.glyphicon.glyphicon-plus.btn.btn-xs
-            for author in book.authors
-              .author
-              input#bookAuthor.form-control(type='text', value=`${author.name}`, name='author')
+            .author
+              for author in book.authors
+                button.clickRemAuthor.glyphicon.glyphicon-remove.btn.btn-xs
+                input#bookAuthor.form-control(type='text', value=`${author.name}`, name='author')
           .form-group
             label(for='bookGenre') Genre
             button.clickAddGenre.glyphicon.glyphicon-plus.btn.btn-xs
-            for genre in book.genres
-              .genre
-              input#bookGenre.form-control(type='text', value=`${genre.name}`, name='genre')
+            .genre
+              for genre in book.genres
+                button.clickRemGenre.glyphicon.glyphicon-remove.btn.btn-xs
+                input#bookGenre.form-control(type='text', value=`${genre.name}`, name='genre')
           .form-group
             label(for='pageCount') Page Count
             input#pageCount.form-control(type='number',  value=`${book.page_count}`, name='pageCount')
@@ -35,7 +37,7 @@
           .form-group
             label(for='bookDescription') Book Synopsis
             textarea#bookDescription.form-control(rows='3',name='description')
-              #{book.description}
+              | #{book.description}
           .form-group
             label(for='bookImgUrl') Image URL
             input#bookImgUrl.form-control(type='text',  value=`${book.thumbnail_image_url}`, name='imgUrl')
@@ -48,8 +50,3 @@
           .modal-footer
             button.btn.btn-secondary(type='button', data-dismiss='modal') Close
             button.btn.btn-primary(type='submit') Save changes
-
-mixin addAuthors( authors )
-  for author in authors
-    .author
-    input#bookAuthor.form-control(type='text', value=`${author.name}`, name='author')

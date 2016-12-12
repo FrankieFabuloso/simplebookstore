@@ -5,9 +5,9 @@ navnavbar.navbar-default.navbar-fixed-top
       span BookStore
     .navbar-header
       ul.nav.nav-tabs
-        li.active(role='presentation')
+        li(role='presentation' class={active: isAdmin})
           a(href='/admin') Admin
-        li(role='presentation')
+        li(role='presentation' class={active: isBookList})
           a(href='/') Book List
         if isAdmin
           li(role='presentation')

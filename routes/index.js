@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
   console.log(randomBooks.length);
   Promise.all(randomBooks)
   .then( result => {
-    res.render('index', { books: result })
+    res.render('index', { books: result, isBookList: true })
   })
 })
 
@@ -55,11 +55,15 @@ router.post('/admin/addBook', function(req, res, next) {
   })
 })
 
-router.post('/edit/:id', function(req, res, next) {
-  const id = req.params.id
-  Books.getBook(id)
-  .then( result => {
+router.post('/admin/edit/:id', function(req, res, next) {
+  const id = parseInt( req.params.id )
+  console.log(id, req.body );
 
+  // Books.getBook(id)
+  Books.updateBook( id, req.body )
+  .then( result => {
+    console.log( result);
+    res.redirect( `/book/${id}` )
   })
 })
 router.get('/admin/addBook/success', function(req, res, next) {
