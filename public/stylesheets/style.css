@@ -38,10 +38,15 @@ span {
   padding-right: 5px;
   padding-left: 5px;
   border-right: 1px solid black;
+}
 
 .book-description p {
   border: 1px black solid;
   padding: 10px;
+}
+
+.delete-book{
+  border: none !important;
 }
 
 .clickRemGenre, .clickRemAuthor {
